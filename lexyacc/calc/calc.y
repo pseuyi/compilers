@@ -20,8 +20,10 @@ main()
 %}
 
 %token <number> INT
+%left '+' '-'
+%left '*' '/'
 %right '^'
-%left '+' '-' '*' '/'
+
 
 %%
 E:  
