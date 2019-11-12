@@ -20,9 +20,8 @@ main()
 %}
 
 %token <number> INT
-%left '^'
-%nonassoc '+' '-'
-%left '*' '/'
+%right '^'
+%left '+' '-' '*' '/'
 
 %%
 E:  
@@ -30,13 +29,13 @@ E:
    |
    E '^' E
    |
+   E '*' E
+   | 
+   E '/' E 
+   |
    E '+' E
    |
    E '-' E
-   |
-   E '*' E
-   | 
-   E '/' E
    |
    error
    ;

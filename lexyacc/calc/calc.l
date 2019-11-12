@@ -5,6 +5,6 @@
 
 %%
 [0-9]+                  yylval=atoi(yytext); return INT;
-.                       return (int) yytext[0];
 [ \t]+                  /* ignore whitespace */;
+.                       return (int) yytext[0];
 %%
