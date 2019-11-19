@@ -1,3 +1,5 @@
+## 2.2
+
 2.2.1 
 
 a)b)
@@ -91,5 +93,100 @@ num 0  11
 b) yes
 
 2.2.6
+
+## 2.3
+
+2.3.1
+
+ 9-5+2 --> -95+2 -> +-952
+
+ e:
+  {print('+')} e + e
+  |
+  {print('-')} e - e
+  |
+  {print(int)} int
+
+2.3.2
+
+  95-2\*
+  952\*-
+
+ e:
+  e e -
+  e e *
+  
+2.3.3
+ t:
+  0 error
+  1 {print(I)}
+  2 {print(II)}
+  3 {print(III)}
+  4 {print(IV)}
+  5 {print(V)}
+  6 {print(VI)}
+  7 {print(VII)}
+  8 {print(VIII)}
+  9 {print(IX)}
+  10{print(X)}
+
+
+
+
+! 2.3.4
+2.3.5
+
+2.4.1
+
+a) 
+
+S = () => {
+  switch(i) {
+    case +: 
+      match(+)
+      S() 
+      S()
+      break;
+    case -:
+      match(-) 
+      S() 
+      S()
+      break;
+    case a:
+      match(a)
+      break;
+    default:
+     throw new Error('syntax');
+  }
+} 
+
+b)
+
+S = () => {
+  switch(i) {
+    case '(': 
+      match('(')
+      S()
+      match(')')
+      break;
+    case '': 
+      match('')
+      break;
+    default:
+      // throw new Error('syntax')
+      S();
+  }
+}
+
+c)
+
+S = () => {
+  switch(i) {
+    case 0:
+      break;
+    case 1: 
+      break;
+  }
+}
 
 
