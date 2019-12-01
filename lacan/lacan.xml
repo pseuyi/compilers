@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+
+<bison-xml-report version="3.4.2" bug-report="bug-bison@gnu.org" url="http://www.gnu.org/software/bison/">
+
+  <filename>lacan.y</filename>
+
+  <grammar>
+    <rules>
+      <rule number="0" usefulness="useful">
+        <lhs>$accept</lhs>
+        <rhs>
+          <symbol>chains</symbol>
+          <symbol>$end</symbol>
+        </rhs>
+      </rule>
+      <rule number="1" usefulness="useful">
+        <lhs>chains</lhs>
+        <rhs>
+          <empty/>
+        </rhs>
+      </rule>
+      <rule number="2" usefulness="useful">
+        <lhs>chains</lhs>
+        <rhs>
+          <symbol>chains</symbol>
+          <symbol>chain</symbol>
+        </rhs>
+      </rule>
+      <rule number="3" usefulness="useful">
+        <lhs>chain</lhs>
+        <rhs>
+          <symbol>signifier</symbol>
+          <symbol>TOKPRIME</symbol>
+        </rhs>
+      </rule>
+      <rule number="4" usefulness="useful">
+        <lhs>signifier</lhs>
+        <rhs>
+          <symbol>TOKSUBJECT</symbol>
+        </rhs>
+      </rule>
+      <rule number="5" usefulness="useful">
+        <lhs>signifier</lhs>
+        <rhs>
+          <symbol>TOKDESIRE</symbol>
+        </rhs>
+      </rule>
+    </rules>
+    <terminals>
+      <terminal symbol-number="0" token-number="0" name="$end" usefulness="useful"/>
+      <terminal symbol-number="1" token-number="256" name="error" usefulness="useful"/>
+      <terminal symbol-number="3" token-number="258" name="TOKSUBJECT" usefulness="useful"/>
+      <terminal symbol-number="4" token-number="259" name="TOKDESIRE" usefulness="useful"/>
+      <terminal symbol-number="5" token-number="260" name="TOKPRIME" usefulness="useful"/>
+    </terminals>
+    <nonterminals>
+      <nonterminal symbol-number="6" name="$accept" usefulness="useful"/>
+      <nonterminal symbol-number="7" name="chains" usefulness="useful"/>
+      <nonterminal symbol-number="8" name="chain" usefulness="useful"/>
+      <nonterminal symbol-number="9" name="signifier" usefulness="useful"/>
+    </nonterminals>
+  </grammar>
+
+  <automaton>
+
+    <state number="0">
+      <itemset>
+        <item rule-number="0" point="0"/>
+        <item rule-number="1" point="0"/>
+        <item rule-number="2" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="goto" symbol="chains" state="1"/>
+        </transitions>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="1" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="1">
+      <itemset>
+        <item rule-number="0" point="1"/>
+        <item rule-number="2" point="1"/>
+        <item rule-number="3" point="0"/>
+        <item rule-number="4" point="0"/>
+        <item rule-number="5" point="0"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="$end" state="2"/>
+          <transition type="shift" symbol="TOKSUBJECT" state="3"/>
+          <transition type="shift" symbol="TOKDESIRE" state="4"/>
+          <transition type="goto" symbol="chain" state="5"/>
+          <transition type="goto" symbol="signifier" state="6"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="2">
+      <itemset>
+        <item rule-number="0" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="accept" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="3">
+      <itemset>
+        <item rule-number="4" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="4" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="4">
+      <itemset>
+        <item rule-number="5" point="1"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="5" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="5">
+      <itemset>
+        <item rule-number="2" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="2" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="6">
+      <itemset>
+        <item rule-number="3" point="1"/>
+      </itemset>
+      <actions>
+        <transitions>
+          <transition type="shift" symbol="TOKPRIME" state="7"/>
+        </transitions>
+        <errors/>
+        <reductions/>
+      </actions>
+      <solved-conflicts/>
+    </state>
+
+    <state number="7">
+      <itemset>
+        <item rule-number="3" point="2"/>
+      </itemset>
+      <actions>
+        <transitions/>
+        <errors/>
+        <reductions>
+          <reduction symbol="$default" rule="3" enabled="true"/>
+        </reductions>
+      </actions>
+      <solved-conflicts/>
+    </state>
+  </automaton>
+</bison-xml-report>

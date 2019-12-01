@@ -1,0 +1,166 @@
+Grammar
+
+    0 $accept: E $end
+
+    1 E: INT
+    2  | E '+' E
+    3  | E '-' E
+    4  | E '*' E
+    5  | E '/' E
+    6  | error
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '*' (42) 4
+    '+' (43) 2
+    '-' (45) 3
+    '/' (47) 5
+    error (256) 6
+    INT (258) 1
+
+
+Nonterminals, with rules where they appear
+
+    $accept (8)
+        on left: 0
+    E (9)
+        on left: 1 2 3 4 5 6
+        on right: 0 2 3 4 5
+
+
+State 0
+
+    0 $accept: . E $end
+
+    error  shift, and go to state 1
+    INT    shift, and go to state 2
+
+    E  go to state 3
+
+
+State 1
+
+    6 E: error .
+
+    $default  reduce using rule 6 (E)
+
+
+State 2
+
+    1 E: INT .
+
+    $default  reduce using rule 1 (E)
+
+
+State 3
+
+    0 $accept: E . $end
+    2 E: E . '+' E
+    3  | E . '-' E
+    4  | E . '*' E
+    5  | E . '/' E
+
+    $end  shift, and go to state 4
+    '+'   shift, and go to state 5
+    '-'   shift, and go to state 6
+    '*'   shift, and go to state 7
+    '/'   shift, and go to state 8
+
+
+State 4
+
+    0 $accept: E $end .
+
+    $default  accept
+
+
+State 5
+
+    2 E: E '+' . E
+
+    error  shift, and go to state 1
+    INT    shift, and go to state 2
+
+    E  go to state 9
+
+
+State 6
+
+    3 E: E '-' . E
+
+    error  shift, and go to state 1
+    INT    shift, and go to state 2
+
+    E  go to state 10
+
+
+State 7
+
+    4 E: E '*' . E
+
+    error  shift, and go to state 1
+    INT    shift, and go to state 2
+
+    E  go to state 11
+
+
+State 8
+
+    5 E: E '/' . E
+
+    error  shift, and go to state 1
+    INT    shift, and go to state 2
+
+    E  go to state 12
+
+
+State 9
+
+    2 E: E . '+' E
+    2  | E '+' E .
+    3  | E . '-' E
+    4  | E . '*' E
+    5  | E . '/' E
+
+    '*'  shift, and go to state 7
+    '/'  shift, and go to state 8
+
+    $default  reduce using rule 2 (E)
+
+
+State 10
+
+    2 E: E . '+' E
+    3  | E . '-' E
+    3  | E '-' E .
+    4  | E . '*' E
+    5  | E . '/' E
+
+    '*'  shift, and go to state 7
+    '/'  shift, and go to state 8
+
+    $default  reduce using rule 3 (E)
+
+
+State 11
+
+    2 E: E . '+' E
+    3  | E . '-' E
+    4  | E . '*' E
+    4  | E '*' E .
+    5  | E . '/' E
+
+    $default  reduce using rule 4 (E)
+
+
+State 12
+
+    2 E: E . '+' E
+    3  | E . '-' E
+    4  | E . '*' E
+    5  | E . '/' E
+    5  | E '/' E .
+
+    $default  reduce using rule 5 (E)
