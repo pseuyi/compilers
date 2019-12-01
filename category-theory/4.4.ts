@@ -13,17 +13,22 @@ const compose = (f, g) => {
 */
 
 interface Optional<A> {
-  value?: A,
-  isValid: boolean
+  value?: A;
+  isValid: boolean;
 }
 
 // embelished fns
-const safeRoot = (x: number): Optional<number> => x < 0 ? { value: undefined, isValid: false } : { value: Math.sqrt(x), isValid: true }
-const safeReciprocal = (x: number): Optional<number> => x <= 0 ? { value: undefined, isValid: false } : { value: 1/x, isValid: true }
+const safeRoot = (x: number): Optional<number> =>
+  x < 0
+    ? {value: undefined, isValid: false}
+    : {value: Math.sqrt(x), isValid: true};
+
+const safeReciprocal = (x: number): Optional<number> =>
+  x <= 0 ? {value: undefined, isValid: false} : {value: 1 / x, isValid: true};
 
 const compose = (f, g) => {
-  return (x) => {
-    const { value, isValid } = f(x);
+  return x => {
+    const {value, isValid} = f(x);
     return isValid ? g(value) : undefined;
-  }
-}
+  };
+};
