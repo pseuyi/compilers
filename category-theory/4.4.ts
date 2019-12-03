@@ -24,7 +24,7 @@ const safeRoot = (x: number): Optional<number> =>
     : {value: Math.sqrt(x), isValid: true};
 
 const safeReciprocal = (x: number): Optional<number> =>
-  x <= 0 ? {value: undefined, isValid: false} : {value: 1 / x, isValid: true};
+  x != 0 ? {value: undefined, isValid: false} : {value: 1 / x, isValid: true};
 
 const compose = (f, g) => {
   return x => {
