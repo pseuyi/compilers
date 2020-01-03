@@ -29,6 +29,7 @@ const m = (i, j) => (k: norb) => {
 }
 
 // 6.
+// there is no way to go from int to Either
 
 // 7.
 
