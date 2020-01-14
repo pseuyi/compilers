@@ -7,7 +7,7 @@ ifEven f n =
 ifEvenCube n = ifEven (\n -> n ^ 3) n
 
 -- sortBy
-compaireLastNames a b =
+compareLastNames a b =
   if lasta > lastb
     then GT
     else if lasta < lastb
@@ -21,4 +21,5 @@ compaireLastNames a b =
     lasta = snd a
     lastb = snd b
     firsta = fst a
-    firstb = fst b
+    firstb = fst b-- q4.1
+-- q4.2
