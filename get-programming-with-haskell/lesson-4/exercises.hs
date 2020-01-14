@@ -21,5 +21,21 @@ compareLastNames a b =
     lasta = snd a
     lastb = snd b
     firsta = fst a
-    firstb = fst b-- q4.1
+    firstb = fst b
+-- q4.1
+compareLastNames a b =
+  if result == EQ
+    then compare firsta firstb
+    else result
+  where
+    result = compare lasta lastb
+    lasta = snd a
+    lastb = snd b
+    firsta = fst a
+    firstb = fst b
+
 -- q4.2
+dcOffice name = nameText ++ " " ++ suffix ++ " - PO #, Washington D.C."
+  where
+    nameText = (fst name) ++ " " ++ (snd name)
+    suffix = ", Esq."
