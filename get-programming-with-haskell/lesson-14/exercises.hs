@@ -32,3 +32,23 @@ compare _ S4 = LT
 newtype Name =
   Name (String, String)
   deriving (Show, Eq)
+
+-- q14.1
+instance Eq Die
+
+instance Ord Die
+
+-- q14.2
+data FiveSidedDie
+  = S1
+  | S2
+  | S3
+  | S4
+  | S5
+  deriving (Enum, Eq, Show)
+
+class Die a where
+  roll :: Int -> a
+
+instance Die FiveSidedDie where
+  roll n = rand n
