@@ -17,3 +17,14 @@ fourLetterEncoder vals = map rot 41 vals
   where
     alphaSize = 1 + fromEnum (maxBound :: FourLetterAlphabet)
     rot41 = rotN alphaSize
+
+-- decoder for odd-numbered alphabets
+rotNdecoder :: (Bounded a, Enum a) => Int -> a -> a
+rotNdecoder n c = toEnum rotation
+  where
+    halfN = n `div` 2
+    offset =
+      if even n
+        then from Enum c + halfN
+        else 1 + fromEnum c + halfN
+    rotation = offset `mod` n
