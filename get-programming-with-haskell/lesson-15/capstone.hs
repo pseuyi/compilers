@@ -11,12 +11,13 @@ rotN n c = toEnum rotation
     halfAlphabet = n `div` 2
     offset = fromEnum c + halfAlphabet
     rotation = offset `mod` n
-
+      {-
 fourLetterAlphabetEncoder :: [FourLetterAlphabet] -> [FourLetterAlphabet]
-fourLetterEncoder vals = map rot 41 vals
+fourLetterEncoder vals = map rot41 vals
   where
     alphaSize = 1 + fromEnum (maxBound :: FourLetterAlphabet)
     rot41 = rotN alphaSize
+    -}
 
 -- decoder for odd-numbered alphabets
 rotNdecoder :: (Bounded a, Enum a) => Int -> a -> a
@@ -25,7 +26,7 @@ rotNdecoder n c = toEnum rotation
     halfN = n `div` 2
     offset =
       if even n
-        then from Enum c + halfN
+        then fromEnum c + halfN
         else 1 + fromEnum c + halfN
     rotation = offset `mod` n
 
@@ -87,5 +88,37 @@ applyOTP pad plaintext = map bitsToChar bitList
   where
     bitList = applyOTP' pad plaintext
 
+myOTP = "helloworld"
+
 encoderDecoder :: String -> String
 encoderDecoder = applyOTP myOTP
+
+class Cipher a where
+  encode :: a -> String -> String
+  decode :: a -> String -> String
+
+data Rot =
+  Rot
+
+instance Cipher Rot where
+  encode Rot text = rotEncoder text
+  decode Rot text = rotDecoder text
+
+data OneTimePad =
+  OTP String
+
+rotEncoder :: String -> String
+rotEncoder text = map rotChar text
+  where
+    alphaSize = 1 + fromEnum (maxBound :: Char)
+    rotChar = rotN alphaSize
+
+rotDecoder :: String -> String
+rotDecoder text = map rotCharDecoder text
+  where
+    alphaSize = 1 + fromEnum (maxBound :: Char)
+    rotCharDecoder = rotNdecoder alphaSize
+
+instance Cipher OneTimePad where
+  encode (OTP pad) text = applyOTP pad text
+  decode (OTP pad) text = applyOTP pad text
