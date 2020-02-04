@@ -1,3 +1,4 @@
+-- problem 1
 myLast :: [a] -> Maybe a
 myLast [] = Nothing
 myLast x =
@@ -8,49 +9,35 @@ myLast' [] = Nothing
 myLast' [x] = Just x
 myLast' (x:xs) = myLast' xs
 
+--problem 2
 myButLast [] = Nothing
 myButLast [x] = Nothing
 myButLast [x, y] = Just x
 myButLast (x:xs) = myButLast xs
 
+-- problem 3
 elementAt :: [a] -> Int -> Maybe a
 elementAt [] _ = Nothing
 elementAt _ 0 = Nothing
 elementAt (x:xs) 1 = Just x
 elementAt (x:xs) a = elementAt xs (a - 1)
 
+-- problem 4
 myLength :: [a] -> Int
 myLength [] = 0
-myLength [a] = 1
 myLength (x:xs) = 1 + myLength xs
 
+-- problem 5
 myReverse :: [a] -> [a]
 myReverse [] = []
-myReverse [a] = [a]
 myReverse (x:xs) = (myReverse xs) ++ [x]
 
+-- problem 6
 isPalindrome :: Eq a => [a] -> Bool
 isPalindrome [] = True
-isPalindrome [a] = True
 isPalindrome a = (myReverse a) == a
 
-{-
-isPalindrome [] = True 
-isPalindrome [a] = True 
-isPalindrome x:xs = (x == myLast xs) && ...
--}
-{-- [1, [1,2,3]]
-List [Elem 1, List[Elem 1, Elem 2, Elem 3]]
-Elem 2
-data NestedList a = 
-    Elem a 
-  | List [NestedList a]
-
-flatten :: Nested 
---}
---data List a = Nil | Cons (a, List)
--- [] --> Nil
--- [x] --> Cons (x, Nil)
+-- problem 7
 data NestedList a
   = Elem a
   | List [NestedList a]
@@ -58,8 +45,6 @@ data NestedList a
 flatten :: NestedList a -> [a]
 flatten (Elem a) = [a]
 flatten (List []) = []
-flatten (List ((Elem x):xs)) = x : flatten (List xs)
-flatten (List ((List []):xs)) = flatten (List xs)
 flatten (List (x:xs)) = (flatten x) ++ (flatten (List xs))
 
 -- problem 8
