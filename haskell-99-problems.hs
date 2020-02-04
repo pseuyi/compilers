@@ -48,8 +48,6 @@ flatten (List []) = []
 flatten (List (x:xs)) = (flatten x) ++ (flatten (List xs))
 
 -- problem 8
--- compress "aaaabccaadeeee"
--- "abcade"
 compress :: Eq a => [a] -> [a] -> [a]
 compress [] l = l
 compress (x:xs) l =
@@ -70,40 +68,32 @@ compress' (x:y:xs) l =
   where
     tail = [y] ++ xs
 
-foldingFunc8 :: Eq a => [a] -> a -> [a]
-foldingFunc8 [] x = [x]
-foldingFunc8 l x =
+folder :: Eq a => [a] -> a -> [a]
+folder [] x = [x]
+folder l x =
   if x == (last l)
     then l
     else l ++ [x]
 
-compressThird :: Eq a => [a] -> [a]
-compressThird l = foldl foldingFunc8 [] l
+compress'' :: Eq a => [a] -> [a]
+compress'' l = foldl folder [] l
 
--- x = [1 2 2 2 3 3 2 2]
--- 1 : 2  : 3 : 2 : 1
--- random x []
-{- 
-for ea el in the list
-compare it with head of tail
-if el != head of tail, keep the el
-keep iterating
-if at end of tail, list of one el returns list of one el
--}
--- random [2 2 2 3 3 2 2] [1]
--- random [2 2 3 3 2 2] [1]
--- Problem 9 (from outer space)
-foldingFunc9 :: Eq a => [[a]] -> a -> [[a]]
-foldingFunc9 [] x = [[x]]
-foldingFunc9 l x =
-  if (last (last l)) == x
-    then (take ((length l) - 1) l) ++ [((last l) ++ [x])]
+-- problem 9 
+folder' :: Eq a => [[a]] -> a -> [[a]]
+folder' [] x = [[x]]
+folder' l x =
+  if (lastInSublist) == x
+    then (take ((length l) - 1) l) ++ [(lastSublist ++ [x])]
     else (l ++ [[x]])
+  where
+    lastSublist = last l
+    lastInSublist = last (last l)
 
-subList :: Eq a => [a] -> [[a]]
-subList l = foldl foldingFunc9 [] l
+pack :: Eq a => [a] -> [[a]]
+pack l = foldl folder' [] l
 
+-- problem 10
 encode :: Eq a => [a] -> [(Int, a)]
 encode l = map (\s -> (length s, head s)) sub
   where
-    sub = subList l
+    sub = pack l
