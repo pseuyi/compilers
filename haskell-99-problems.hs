@@ -83,11 +83,12 @@ folder' :: Eq a => [[a]] -> a -> [[a]]
 folder' [] x = [[x]]
 folder' l x =
   if (lastInSublist) == x
-    then (take ((length l) - 1) l) ++ [(lastSublist ++ [x])]
+    then butLast ++ [(lastSublist ++ [x])]
     else (l ++ [[x]])
   where
     lastSublist = last l
     lastInSublist = last (last l)
+    butLast = myButLast l
 
 pack :: Eq a => [a] -> [[a]]
 pack l = foldl folder' [] l
