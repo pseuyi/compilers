@@ -7,3 +7,5 @@ myAny testFn = (foldl (||) False) . map testFn
 --(/) can return a non Int as a result so it cannot be a semigroup
 --17.3
 --(+) addition on Integers is associative
+--17.4
+--the mempty value would be 1
