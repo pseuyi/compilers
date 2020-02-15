@@ -1,3 +1,4 @@
+-- the sample is 2:18, setting cps to 1/8 gives 8s to silence this part
 setcps(1/8)
 
 -- ripped audio of rose from blackpink
