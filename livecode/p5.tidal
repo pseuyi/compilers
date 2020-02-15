@@ -1,0 +1,31 @@
+setcps (120/60/4)
+
+d1 $ stut 8 (1/16) (1/8) $ sound "ul"
+  # gain 0.8
+  # speed 1
+
+d1 silence
+
+d3 $ sound "co co hh hh"
+  # gain 0.8
+  # delay 0.1
+  # hpf 2200
+  # pan sine
+
+d3 silence
+
+d4 $ sound "ul:3 ~ ~ ~ . ~ ul:3 ~ ~"
+-- d4 $ sound "ul:3 ~ ~ ~ . ~ ul:3 ~ ~ . drumtraks . [odx, ul:3]"
+  # gain 1
+  # lpf 3000
+
+d5 $ sound "bas:1"
+  # gain 1
+
+-- the boy is mine melody
+d7 $ stutWith 2 (1/8) (|* release 1.1) $ fast 2 $ n "[a2 df3 e3 af3 e3 a2 df3 a3 a2 e3 df3 a2 df3 fs3 a2 df3a2 e3 a2 af3 a2 a3 a2 e3 a2 df3 df3 e3 af3 af2 b2 af2 ef3 af2 b2 af2 ef3 af2 df3 af2 e3 af2 af2 fs3 af2 b2 e3 b2 df3 ef3 e3 af3 ef3 e3 b3 e3 af3 b3 ef4 b3 af4 b3 b4 af2]/8"
+  # s "supervibe"
+  # gain 0.8
+  # sustain 0.4
+  # lpf 2400
+  # room 0.6
