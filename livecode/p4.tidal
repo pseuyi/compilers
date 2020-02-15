@@ -1,7 +1,6 @@
 setcps (120/60/4)
 
--- d1 $ striate 3 $ chop 4 $ s "test/2"
-
+-- breaths..
 d2 $ n "[<8 9>]/2"
   # s "house"
   # gain 0.9
@@ -23,12 +22,14 @@ d5 $ s "bas:1"
   # lpf 120
   # up "<2 2 1>"
 
+-- chords
 d6 $ s "fx:6/4"
   # gain 0.9
   # room 0.7
   # size 0.3
   # speed 0.68
 
+-- more chords
 d7 $ stut 8 (1/8) (1/16) $ s "house:2/4"
   # gain 0.7
   # delay 0.2
