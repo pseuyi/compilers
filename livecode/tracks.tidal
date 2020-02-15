@@ -1,0 +1,25 @@
+-- synth
+d1 silence
+
+-- mandolin/gabor
+d2 silence
+
+-- hats
+d3 silence
+
+-- drums
+d4 silence
+
+-- bass
+d5 silence
+
+-- samples
+d6 silence
+
+-- fx1
+d7 silence
+
+-- fx2
+d8 silence
+
+hush
