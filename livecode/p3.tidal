@@ -1,0 +1,62 @@
+setcps (120/60/4)
+
+-- gar pad variations
+d1 $ whenmod 4 8 (fast 2) $ n "<0 1 4 ~ 1 5 1>"
+-- d1 $ whenmod 4 8 (# speed 2) $ n "<3 2 ~ 2 ~ 2 ~>"
+  # s "gar"
+  # speed 0.98
+  # gain 0.9
+  # cut 1
+  # room 0.4
+
+-- reed flute
+d1 $ sometimes (degradeBy 0.25)
+  $ chop 2
+  $ fast 2
+  $ sound "fx:4/4"
+  # gain 0.8
+  # speed 1.4
+  # cut 1
+  # room 0.2
+  -- # delay 0.7
+  -- # delayt 0.5
+
+d3 $ stut 8 (1/8) (1/16)
+  $ s "[~ ~ superhat ~]*4"
+  # gain 0.9
+  # pan sine
+
+d8 $ s "[~ ~ cp ~]"
+    # gain 0.8
+
+d8 silence
+
+
+d4 $ stack [
+  -- s "kicks:1 . kicks:1 ~ ~ <kicks?,~> . kicks:1 . kicks:1"
+  s "kicks:1*4"
+    # gain 1
+    # lpf 220
+  -- ,
+  -- s "mdrum:4/2"
+  --   # gain 1
+  --   # pan sine
+]
+
+-- bass
+d5 $ s "bas"
+  # gain 1
+  # cut 1
+  # lpf 120
+  # up "<0 2 2 0 4 2>"
+
+-- thunder mtn
+d7 $ s "fx:3/4"
+  # gain 0.7
+  # cut 1
+
+-- can opening
+d8 $ sound "fx:1/4"
+  # gain 0.9
+
+d8 silence
