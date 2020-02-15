@@ -1,0 +1,7 @@
+setcps(1/8)
+
+-- ripped audio of rose from blackpink
+d1 $ s "blackpink"
+  # gain 1
+
+d1 silence
