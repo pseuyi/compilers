@@ -1,0 +1,93 @@
+setcps (120/60/4)
+
+d1 $ slow 4 $ striate 100 $ sound "mpad"
+    # gain 1
+    # cut 1
+    # room 0.8
+    # size 0.8
+    # speed 1.26
+
+d1 silence
+
+-- stut 8 (1/16) 0.125 $ arp "up up ~ ~ [~ <down, up>]" $ n (off 0.125 (|- 7) "<f'min(3,8) f'min>")
+-- stut 4 (1/8) 0.125 $ arp "down ~ ~ ~ [~ <down, up>]" $ n (off 0.125 (|- 7) "<f'min(3,8) f'min>")
+mandolin = const $ stut 4 (1/16) 0.125
+    $ arp "[up ~ ~ ~] [~ down]"
+    $ n (off 0.125 (|- 5) "<f'min(5,8) f'min>")
+    # gain 0.8
+    # sound "supermandolin"
+    # sustain 0.9
+    # release 0.8
+    # room 0.5
+    -- # lpf 2000
+    # hpf 2000
+
+-- midinote "~ 56 51 ~ ~"
+gabor = arp "up" $ n "f'min"
+  # sound "gabor"
+  # gain 0.65
+  # cut 1
+  # room 0.2
+  # size 0.8
+
+d2 $ every 2 (mandolin) $ gabor
+
+d2 silence
+
+-- messy hats
+d3 $ often (slow 2)
+  $ sound "[[hh:1] [hh hh]]*4"
+  # gain 0.7
+  # delay 0.4
+  # delayt 0.5
+  # room 0.5
+  # sz 0.3
+  # pan sine
+  # cut 1
+  # hpf 2200
+
+d3 $ sound "hh hh:1 [hh hh hh] [hh:3 hh]"
+  # gain 0.7
+  # delay 0.4
+  # delayt 0.5
+  # hpf 1000
+
+d3 silence
+
+-- deep bd
+d4 $ swingBy (0) 2
+  -- $ sound "bassdm:11*2"
+  $ sound "bassdm:11 [bd ~ bassdm:11? ~]"
+  # gain 0.9
+  # speed 1
+  # sustain 0.9
+  # release 1.2
+  # lpf 120
+
+d4 silence
+
+-- chanel clips
+d6 $ s "five:1/4"
+-- d6 $ stut 4 (1/16) 0.2 $ n "<0 1 2 3>/8" # s "five"
+  # gain 0.9
+  # speed 1
+  # room 0.4
+  # sz 0.2
+  # lpf 4000
+
+d6 silence
+
+-- d6 $ sound "mpad:1" # speed 1.4
+d7 $ sound "mpad:1"
+  # gain 1
+  # speed 1.42
+
+d7 silence
+
+-- cars passing
+d8 $ sound "fx:2/4"
+  # gain 0.9
+  # cut 1
+  # shape 0.4
+
+d8 silence
