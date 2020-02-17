@@ -1,4 +1,6 @@
-# recurse center, winter one (november 2019 - february 2020)
+# recurse center, winter one 
+
+(november 4 2019 - february 14 2020)
 
 stuff i worked on while at rc:
 * reading *category theory for programmers*
