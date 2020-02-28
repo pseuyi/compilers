@@ -65,5 +65,33 @@ processRequest id catalog = processAndReport organ
 processAndReport :: (Maybe Organ) -> String
 processAndReport (Just organ) = report (process organ)
 processAndReport Nothing = report Nothing
+
 --q19.1
+possibleDrawers :: [Int]
+possibleDrawers = [1 .. 50]
+
+getDrawerContents :: [Int] -> Map.Map Int Organ -> [Maybe Organ]
+getDrawerContents ids catalog = map getContents ids
+  where
+    getContents = \id -> Map.lookup id catalog
+
+availableOrgans :: [Maybe Organ]
+availableOrgans = getDrawerContents possibleDrawers organCatalog
+
+isEmpty :: Maybe Organ -> Bool
+isEmpty Nothing = True
+isEmpty (Just _) = False
+
+emptyDrawers :: [Maybe Organ] -> Int
+emptyDrawers organs = length (filter isEmpty organs)
+  {-
+maybeMap :: (a -> b) -> [Maybe a] -> [Maybe b]
+maybeMap f (Nothing:xs) = [] ++ (maybeMap f xs)
+
+maybemap f ((Just x):xs) = [f x] ++ (maybeMap f xs)
+-}
+
 --q19.2
+maybeMap :: (a -> b) -> Maybe a -> Maybe b
+maybeMap f Nothing = Nothing
+maybeMap f (Just x) = Just (f x)
