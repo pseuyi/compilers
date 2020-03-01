@@ -133,3 +133,72 @@ meanTS (TS times values) =
     justVals = filter isJust values
     cleanVals = map fromJust justVals
     avg = mean cleanVals
+
+type CompareFunc a = a -> a -> a
+
+type TSCompareFunc a = (Int, Maybe a) -> (Int, Maybe a) -> (Int, Maybe a)
+
+makeTSCompare :: Eq a => CompareFunc a -> TSCompareFunc a
+makeTSCompare f = g
+  where
+    g (i1, Nothing) (i2, Nothing) = (i1, Nothing)
+    g (_, Nothing) (i2, v) = (i2, v)
+    g (i1, v) (_, Nothing) = (i1, v)
+    g (i1, Just v1) (i2, Just v2) =
+      if f v1 v2 == v1
+        then (i1, Just v1)
+        else (i2, Just v2)
+
+compareTS :: Eq a => CompareFunc a -> TS a -> Maybe (Int, Maybe a)
+compareTS f (TS [] []) = Nothing
+compareTS f (TS times values) =
+  if all (== Nothing) values
+    then Nothing
+    else Just best
+  where
+    pairs = zip times values
+    best = foldl (makeTSCompare f) (0, Nothing) pairs
+
+minTS :: Ord a => TS a -> Maybe (Int, Maybe a)
+minTS = compareTS min
+
+maxTS :: Ord a => TS a -> Maybe (Int, Maybe a)
+maxTS = compareTS max
+
+diffPair :: Num a => Maybe a -> Maybe a -> Maybe a
+diffPair Nothing _ = Nothing
+diffPair _ Nothing = Nothing
+diffPair (Just x) (Just y) = Just (x - y)
+
+diffTS :: Num a => TS a -> TS a
+diffTS (TS [] []) = TS [] []
+diffTS (TS times values) = TS times (Nothing : diffValues)
+  where
+    shiftedValues = tail values
+    diffValues = zipWith diffPair shiftedValues values
+
+meanMaybe :: (Real a) => [Maybe a] -> Maybe Double
+meanMaybe vals =
+  if any (== Nothing) vals
+    then Nothing
+    else (Just avg)
+  where
+    avg = mean (map fromJust vals)
+
+movingAvg :: (Real a) => [Maybe a] -> Int -> [Maybe Double]
+movingAvg [] n = []
+movingAvg vals n =
+  if length nextVals == n
+    then meanMaybe nextVals : movingAvg restVals n
+    else []
+  where
+    nextVals = take n vals
+    restVals = tail vals
+
+movingAverageTS :: (Real a) => TS a -> Int -> TS Double
+movingAverageTS (TS [] []) n = TS [] []
+movingAverageTS (TS times values) n = TS times smoothedValues
+  where
+    ma = movingAvg values n
+    nothings = replicate (n `div` 2) Nothing
+    smoothedValues = mconcat [nothings, ma, nothings]
