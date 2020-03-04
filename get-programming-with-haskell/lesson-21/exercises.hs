@@ -77,12 +77,11 @@ maybeMain2 = do
   putStrLn statement
 
 --q21.2
-
 fastFib 1 n1 _ = n1
 fastFib n n1 n2 = fastFib (n - 1) (n1 + n2) n1
 
 mainFib :: IO ()
-mainFib ::
+mainFib = do
   n <- getLine
   let nth = fastFib n 1 1
   putStrLn "the nth fib num is: " ++ nth
