@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+import Control.Monad
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as BC
 import System.Environment
@@ -11,12 +12,16 @@ main = do
   args <- getArgs
   let filename = head args
   image <- BC.readFile filename
-  glitched <- randomSortSection image
-  glitched1 <- randomReplaceByte glitched
-  glitched2 <- randomSortSection glitched1
-  glitched3 <- randomReplaceByte glitched2
-  glitched4 <- randomSortSection glitched3
-  glitched5 <- randomReplaceByte glitched4
+  glitched <-
+    foldM
+      (\bytes func -> func bytes)
+      imageFile
+      [ randomReplaceByte
+      , randomSortSection
+      , randomReplaceByte
+      , randomSortSection
+      , randomReplaceByte
+      ]
   let newFile = mconcat ["glitched_", filename]
   BC.writeFile newFile glitched
   print "all done"
@@ -58,8 +63,18 @@ randomSortSection bytes = do
   start <- randomRIO (0, bytesLength - sectionSize)
   return (sortSection start sectionSize bytes)
 
---q25.3
+--25.3
 randomChar :: IO Char
 randomChar = do
   randInt <- randomRIO (0, 255)
   return (toEnum randInt)
+
+--25.4
+glitchActions :: [BC.ByteString -> IO BC.ByteString]
+glitchActions =
+  [ randomReplaceByte
+  , randomSortSection
+  , randomReplaceByte
+  , randomSortSection
+  , randomReplaceByte
+  ]
