@@ -1,3 +1,4 @@
+import System.Environment
 import System.IO
 
 getCounts :: String -> (Int, Int, Int)
