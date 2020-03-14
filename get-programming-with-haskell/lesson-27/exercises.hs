@@ -12,4 +12,4 @@ instance Functor Maybe where
   fmap func Nothing = Nothing
 
 fReverseMaybe :: Maybe String -> Maybe String
-fReeverseMaybe str = fmap reverse str
+fReverseMaybe str = fmap reverse str
