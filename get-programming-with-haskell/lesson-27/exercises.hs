@@ -1,4 +1,5 @@
 import qualified Data.Map as Map
+import System.IO
 
 --27.1
 reverseMaybe :: Maybe String -> Maybe String
@@ -8,10 +9,11 @@ reverseMaybe (Just str) = Just (reverse str)
 incMaybe :: Maybe Int -> Maybe Int
 incMaybe (Just n) = Just (n + 1)
 incMaybe Nothing = Nothing
-
+  {--
 instance Functor Maybe where
   fmap func (Just n) = Just (func n)
   fmap func Nothing = Nothing
+  --}
 
 fReverseMaybe :: Maybe String -> Maybe String
 fReverseMaybe str = fmap reverse str
@@ -104,3 +106,35 @@ leftArmIO = return leftArm
 
 htmlSnippet :: IO Html
 htmlSnippet = renderHtml <$> leftArmIO
+
+--q27.1
+data Box a =
+  Box a
+  deriving (Show)
+
+instance Functor Box where
+  fmap func (Box a) = Box (func a)
+
+morePresents :: Int -> Box a -> Box [a]
+morePresents n b = (replicate n) <$> b
+
+--q27.2
+myBox :: Box Int
+myBox = Box 1
+
+wrapped :: a -> Box a
+wrapped val = Box val
+
+unwrap :: Box a -> a
+unwrap (Box val) = val
+
+--q27.3
+lookupPart :: Int -> Maybe RobotPart
+lookupPart id = Map.lookup id partsDB
+
+main :: IO ()
+main = do
+  id <- getLine
+  let input = read id
+  let res = lookupPart input
+  fmap putStrLn show (cost <$> res)
