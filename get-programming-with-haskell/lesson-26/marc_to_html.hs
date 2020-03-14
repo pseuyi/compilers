@@ -164,7 +164,7 @@ authorTag :: T.Text
 authorTag = "100"
 
 authorSubfield :: Char
-authorSubfield = 'a
+authorSubfield = 'a'
 
 lookupFieldMetadata :: T.Text -> MarcRecordRaw -> Maybe FieldMetadata
 lookupFieldMetadata tgtTag record =
@@ -178,8 +178,8 @@ lookupFieldMetadata tgtTag record =
 lookupSubfield :: (Maybe FieldMetadata) -> Char -> MarcRecordRaw -> Maybe T.Text
 lookupSubfield Nothing subfield record = Nothing
 lookupSubfield (Just fieldMetadata) subfield record =
-  if results == Nothing
-    then []
+  if results == []
+    then Nothing
     else Just ((T.drop 1 . head) results)
   where
     rawField = getTextField record fieldMetadata
@@ -197,6 +197,24 @@ lookupTitle = lookupValue titleTag titleSubfield
 lookupAuthor :: MarcRecordRaw -> Maybe Author
 lookupAuthor = lookupValue authorTag authorSubfield
 
+marcToPairs :: B.ByteString -> [(Maybe Title, Maybe Author)]
+marcToPairs marcStream = zip titles authors
+  where
+    records = allRecords marcStream
+    titles = map lookupTitle records
+    authors = map lookupAuthor records
+
+pairsToBooks :: [(Maybe Title, Maybe Author)] -> [Book]
+pairsToBooks pairs =
+  map
+    (\(title, author) -> Book {title = fromJust title, author = fromJust author})
+    justPairs
+  where
+    justPairs = filter (\(title, author) -> isJust title && isJust author) pairs
+
+processRecords :: Int -> B.ByteString -> Html
+processRecords n = booksToHtml . pairsToBooks . (take n) . marcToPairs
+
 {-- convert sample data to html
 main :: IO ()
 main = do
@@ -207,5 +225,5 @@ main = do
 main :: IO ()
 main = do
   marcStream <- B.readFile "sample.mrc"
-  let records = allRecords marcStream
-  putStrLn ((show . length) records)
+  let html = processRecords 500 marcStream
+  TIO.writeFile "books.html" html
