@@ -42,5 +42,27 @@ addMaybe :: Maybe Int -> Maybe Int -> Maybe Int
 addMaybe Nothing _ = Nothing
 addMaybe _ Nothing = Nothing
 addMaybe (Just a) (Just b) = Just (a + b)
+
 --28.2
 --distanceFromNY = haversine newYork
+--28.3
+val1 = Just 10
+
+val2 = Just 5
+
+res1 = (*) <$> val1 <*> val2
+
+res2 = div <$> val1 <*> val2
+
+res3 = mod <$> val1 <*> val2
+
+main :: IO ()
+main = do
+  putStrLn "Enter the starting city name:"
+  startingInput <- getLine
+  let startingCity = Map.lookup startingInput locationDB
+  putStrLn "Enter the destination city name:"
+  destInput <- getLine
+  let destCity = Map.lookup destInput locationDB
+  let distance = haversine <$> startingCity <*> destCity
+  printDistance distance
