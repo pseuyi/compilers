@@ -66,3 +66,76 @@ main = do
   let destCity = Map.lookup destInput locationDB
   let distance = haversine <$> startingCity <*> destCity
   printDistance distance
+
+--q28.1
+haversineIO :: IO LatLong -> IO LatLong -> IO Double
+haversineIO a b = do
+  val1 <- a
+  val2 <- b
+  res <- haversine val1 val2
+  putStrLn res
+
+--q28.2
+haversineIO2 :: IO LatLong -> IO LatLong -> IO Double
+haversineIO2 val1 val2 = haversine <$> val1 <*> val2
+
+--q28.3
+data RobotPart =
+  RobotPart
+    { name :: String
+    , description :: String
+    , cost :: Double
+    , count :: Int
+    }
+  deriving (Show)
+
+leftArm :: RobotPart
+leftArm =
+  RobotPart
+    { name = "left arm"
+    , description = "left arm for face punching!"
+    , cost = 1000.00
+    , count = 3
+    }
+
+rightArm :: RobotPart
+rightArm =
+  RobotPart
+    { name = "right arm"
+    , description = "right arm for kind hand gestures"
+    , cost = 1025.00
+    , count = 5
+    }
+
+robotHead :: RobotPart
+robotHead =
+  RobotPart
+    { name = "robot head"
+    , description = "this head looks mad"
+    , cost = 5092.25
+    , count = 2
+    }
+
+partsDB :: Map.Map Int RobotPart
+partsDB = Map.fromList keyVals
+  where
+    keys = [1, 2, 3]
+    vals = [leftArm, rightArm, robotHead]
+    keyVals = zip keys vals
+
+lookupPart :: Int -> Maybe RobotPart
+lookupPart id = Map.lookup id partsDB
+
+showName :: Maybe String -> IO ()
+showName Nothing = putStrLn "could not find part"
+showName (Just name) = putStrLn name
+
+cheapestPart :: IO ()
+cheapestPart = do
+  putStrLn "Enter two part ids:"
+  id1 <- read getLine
+  id2 <- read getLine
+  let p1 = lookupPart id1
+  let p2 = lookupPart id2
+  res <- min <$> (cost <$> p1) <*> (cost <$> p2)
+  showName res
