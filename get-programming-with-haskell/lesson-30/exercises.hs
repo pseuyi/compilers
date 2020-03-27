@@ -57,3 +57,15 @@ lookupGamerId id = Map.lookup id gamerIdDB
 
 creditsFromWCId :: WillCoId -> Maybe PlayerCredits
 creditsFromWCId id = lookupGamerId id >>= lookupUserName >>= lookupCredits
+
+readInt :: IO Int
+readInt = read <$> getLine
+
+printDouble :: Int -> IO ()
+printDouble n = print (n * 2)
+
+readPrint :: IO ()
+readPrint = readInt >>= printDouble
+
+main :: IO ()
+main = readPrint
