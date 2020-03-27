@@ -69,3 +69,12 @@ readPrint = readInt >>= printDouble
 
 main :: IO ()
 main = readPrint
+
+askForName :: IO ()
+askForName = putStrLn "What is your name?"
+
+nameStatement :: String -> String
+nameStatement name = "Hello, " ++ name ++ "!"
+--(askForName >> getLine) >>= (\name -> return (nameStatement name))
+--30.4
+--(\v -> return ((+ 2) v))
