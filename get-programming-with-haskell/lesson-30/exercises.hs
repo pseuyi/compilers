@@ -34,4 +34,26 @@ lookupUserName id = Map.lookup id userNameDB
 lookupCredits :: UserName -> Maybe PlayerCredits
 lookupCredits username = Map.lookup username creditsDB
 
+--creditsFromId :: GamerId -> Maybe PlayerCredits
+creditsFromIdStrange :: GamerId -> Maybe (Maybe PlayerCredits)
+creditsFromIdStrange id = pure lookupCredits <*> lookupUserName id
+
 creditsFromId :: GamerId -> Maybe PlayerCredits
+creditsFromId id = lookupUserName id >>= lookupCredits
+
+getLine :: IO String
+putStrLn :: String -> IO ()
+--30.2
+-- there's no pattern to take String out of IO String
+type WillCoId = Int
+
+gamerIdDB :: Map.Map WillCoId GamerId
+gamerIdDB =
+  Map.fromList
+    [(1001, 1), (1002, 2), (1003, 3), (1004, 4), (1005, 5), (1006, 6)]
+
+lookupGamerId :: WillCoId -> Maybe GamerId
+lookupGamerId id = Map.lookup id gamerIdDB
+
+creditsFromWCId :: WillCoId -> Maybe PlayerCredits
+creditsFromWCId id = lookupGamerId id >>= lookupUserName >>= lookupCredits
