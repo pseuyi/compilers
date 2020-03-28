@@ -139,3 +139,33 @@ assessCandidateMaybe cId = do
           then "passed"
           else "failed"
   return statement
+
+getStatement :: Maybe String -> String
+getStatement Nothing = "error id not found"
+getStatement (Just passed) =
+  if passed
+    then "passed"
+    else "failed"
+
+candidates :: [Candidate]
+candidates = [candidate1, candidate2, candidate3]
+
+assessCandidateList :: [Candidate] -> [String]
+assessCandidateList candidates = do
+  candidate <- candidates
+  let passed = viable candidate
+  let statement =
+        if passed
+          then "passed"
+          else "failed"
+  return statement
+
+assessCandidate :: Monad m => m Candidate -> m String
+assessCandidate candidates = do
+  candidate <- candidates
+  let passed = viable candidate
+  let statement =
+        if passed
+          then "passed"
+          else "failed"
+  return statement
