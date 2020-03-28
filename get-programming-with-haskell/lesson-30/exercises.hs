@@ -75,6 +75,11 @@ askForName = putStrLn "What is your name?"
 
 nameStatement :: String -> String
 nameStatement name = "Hello, " ++ name ++ "!"
+
 --(askForName >> getLine) >>= (\name -> return (nameStatement name))
 --30.4
 --(\v -> return ((+ 2) v))
+--q30.1
+allFmapM :: Monad m => (a -> b) -> m a -> m b
+allFmapM func val = val >>= (\x -> return (func x))
+--q30.2
