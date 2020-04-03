@@ -173,22 +173,46 @@ assessCandidate candidates = do
 --q31.1
 main :: IO ()
 main = putStrLn "What is the size of pizza 1" >>
-        getLine >>=
-        (\size1 ->
-          putStrLn "What is the cost of pizza 1" >>
-          getLine >>=
-          (\cost1 ->
-            putStrLn "What is the size of pizza 2" >>
-            getLine >>=
-            (\size2 ->
-              putStrLn "What is the cost of pizza 2" >>
-              getLine >>=
-              (\cost2 ->
-                (\pizza1 ->
-                   (\pizza2 ->
-                      (\betterPizza ->
-                        putStrLn (describePizza betterPizza):
-                       ) (comparePizzas pizza1 pizza2)
-                    )(read size2,read cost2)
-                )(read size1, read cost1)
-           ))))
+       getLine >>=
+       (\size1 ->
+         putStrLn "What is the cost of pizza 1" >>
+         getLine >>=
+         (\cost1 ->
+           putStrLn "What is the size of pizza 2" >>
+           getLine >>=
+           (\size2 ->
+             putStrLn "What is the cost of pizza 2" >>
+             getLine >>=
+             (\cost2 ->
+               (\pizza1 ->
+                 (\pizza2 ->
+                   (\betterPizza ->
+                     putStrLn (describePizza betterPizza):
+                   ) (comparePizzas pizza1 pizza2)
+                 )(read size2, read cost2)
+               )(read size1, read cost1)
+             )))) 
+
+--q31.2
+listMain :: [String] 
+listMain = do
+    size1 <- [10,12,17]
+    cost1 <- [12.0,15.0,20.0]
+    size2 <- [10,11,18]
+    cost2 <- [13.0,14.0,21.0]
+    let pizza1 = (size1,cost1)
+    let pizza2 = (size2,cost2)
+    let betterPizza = comparePizzas pizza1 pizza2
+    return (describePizza betterPizza)
+
+--q31.3
+monadMain :: Monad m => m Double -> m Double -> m Double -> m Double -> m String
+monadMain s1 c1 s2 c2 = do
+   size1 <- s1
+   cost1 <- c1
+   size2 <- s2
+   cost2 <- c2
+   let pizza1 = (size1,cost1)
+   let pizza2 = (size2,cost2)
+   let betterPizza = comparePizzas pizza1 pizza2
+   return (describePizza betterPizza)
