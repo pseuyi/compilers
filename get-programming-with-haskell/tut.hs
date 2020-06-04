@@ -32,3 +32,6 @@ multTable = [[x * y | y <- [1 .. 10]] | x <- [1 .. 10]]
 firstChar :: String -> String
 firstChar [] = "empty string"
 firstChar all@(x:xs) = "the first letter in " ++ all ++ " is " ++ [x]
+
+-- fib stream
+fib = 1 : 1 : [a + b | (a, b) <- zip fib (tail fib)]
