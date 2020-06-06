@@ -17,6 +17,11 @@ dropEvery (x:xs) n = [x] ++ (_dE xs (n - 1) n)
 
 _dE :: [a] -> Int -> Int -> [a]
 _dE [] _ _ = []
-_dE [x] 1 o = []
+_dE [x] 1 _ = []
 _dE (x:xs) 1 o = dropEvery xs o
-_dE ls n o = dropEvery ls n
+_dE ls n _ = dropEvery ls n
+
+dropEveryLC :: [a] -> Int -> [a]
+dropEveryLC xs 0 = xs
+dropEveryLC xs n = [i | (i, c) <- zip xs [1,2 ..], c `mod` n /= 0]
+-- p17
