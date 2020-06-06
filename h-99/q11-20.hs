@@ -24,4 +24,15 @@ _dE ls n _ = dropEvery ls n
 dropEveryLC :: [a] -> Int -> [a]
 dropEveryLC xs 0 = xs
 dropEveryLC xs n = [i | (i, c) <- zip xs [1,2 ..], c `mod` n /= 0]
+
 -- p17
+split :: [a] -> Int -> ([a], [a])
+split xs n
+  | n <= 0 = ([], xs)
+  | length xs <= n = (xs, [])
+split (x:xs) n = split' [x] xs
+  where
+    split' a (b:bs) =
+      if length a == n
+        then (a, [b] ++ bs)
+        else split' (a ++ [b]) bs
