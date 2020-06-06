@@ -17,5 +17,6 @@ dropEvery (x:xs) n = [x] ++ (_dE xs (n - 1) n)
 
 _dE :: [a] -> Int -> Int -> [a]
 _dE [] _ _ = []
-_dE (x:[]) 1 o = []
+_dE [x] 1 o = []
 _dE (x:xs) 1 o = dropEvery xs o
+_dE ls n o = dropEvery ls n
