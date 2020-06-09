@@ -35,3 +35,6 @@ firstChar all@(x:xs) = "the first letter in " ++ all ++ " is " ++ [x]
 
 -- fib stream
 fib = 1 : 1 : [a + b | (a, b) <- zip fib (tail fib)]
+
+-- inf fib
+infFibs = 0 : 1 : zipWith (+) infFibs (tail infFibs)
