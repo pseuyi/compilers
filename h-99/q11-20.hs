@@ -36,3 +36,12 @@ split (x:xs) n = split' [x] xs
       if length a == n
         then (a, [b] ++ bs)
         else split' (a ++ [b]) bs
+
+-- p 18
+slice :: [a] -> Int -> Int -> [a]
+slice [] _ _ = []
+slice (x:_) _ 1 = [x]
+slice xs a b = [x | (x, i) <- ls, i >= a, i <= b]
+  where
+    ls = zip xs [1 .. last]
+    last = length xs
