@@ -63,3 +63,12 @@ removeAt xs n = ([removed], rest)
     (removed:_) = [x | (x, i) <- ls, i == n]
     rest = [x | (x, i) <- ls, i /= n]
     ls = zip xs [1 .. (length xs)]
+
+removeAt' :: [a] -> Int -> (Maybe a, [a])
+removeAt' [] _ = (Nothing, [])
+removeAt' xs 0 = (Nothing, xs)
+removeAt' xs n = (Just removed, rest)
+  where
+    removed = xs !! (n - 1)
+    rest = [x | (x, i) <- ls, i /= n]
+    ls = zip xs [1 .. (length xs)]
