@@ -45,3 +45,11 @@ slice xs a b = [x | (x, i) <- ls, i >= a, i <= b]
   where
     ls = zip xs [1 .. last]
     last = length xs
+
+-- p19
+rotate :: [a] -> Int -> [a]
+rotate [] _ = []
+rotate xs 0 = xs
+rotate ls@(x:xs) n
+  | n < 0 = rotate ls (length ls + n)
+  | n > 0 = rotate (xs ++ [x]) (n - 1)
