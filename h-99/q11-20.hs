@@ -53,3 +53,13 @@ rotate xs 0 = xs
 rotate ls@(x:xs) n
   | n < 0 = rotate ls (length ls + n)
   | n > 0 = rotate (xs ++ [x]) (n - 1)
+
+-- p 20
+removeAt :: [a] -> Int -> ([a], [a])
+removeAt [] _ = ([], [])
+removeAt xs 0 = ([], xs)
+removeAt xs n = ([removed], rest)
+  where
+    (removed:_) = [x | (x, i) <- ls, i == n]
+    rest = [x | (x, i) <- ls, i /= n]
+    ls = zip xs [1 .. (length xs)]
