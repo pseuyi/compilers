@@ -36,3 +36,7 @@ removeAt xs n = rest
   where
     rest = [x | (x, i) <- ls, i /= n]
     ls = zip xs [1 .. (length xs)]
+
+--q24
+diffSelect :: Int -> Int -> IO [Int]
+diffSelect n m = rndSelect' [1 .. m] n
