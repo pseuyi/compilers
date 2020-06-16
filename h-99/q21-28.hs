@@ -15,7 +15,7 @@ range a b
   | otherwise = [a] ++ range (a + 1) b
 
 --q23
-rndSelect :: [a] -> Int -> IO [Int]
-rndSelect (x:xs) n = do
-  idxs <- replicateM n (randomRIO (1, (length xs)))
-  return idxs
+rndSelect :: [a] -> Int -> IO [a]
+rndSelect ls@(x:xs) n = do
+  idxs <- replicateM n (randomRIO (1, (length xs) + 1))
+  return [x | (x, i) <- (zip ls [1 .. (length ls)]), i `elem` idxs]
