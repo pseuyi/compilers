@@ -19,3 +19,20 @@ rndSelect :: [a] -> Int -> IO [a]
 rndSelect ls@(x:xs) n = do
   idxs <- replicateM n (randomRIO (1, (length xs) + 1))
   return [x | (x, i) <- (zip ls [1 .. (length ls)]), i `elem` idxs]
+
+-- q23, recursive
+rndSelect' :: [a] -> Int -> IO [a]
+rndSelect' _ 0 = do
+  return []
+rndSelect' xs n = do
+  idx <- randomRIO (1, (length xs))
+  rest <- rndSelect' (removeAt xs n) (n - 1)
+  return ((xs !! idx) : rest)
+
+removeAt :: [a] -> Int -> [a]
+removeAt [] _ = []
+removeAt xs 0 = xs
+removeAt xs n = rest
+  where
+    rest = [x | (x, i) <- ls, i /= n]
+    ls = zip xs [1 .. (length xs)]
