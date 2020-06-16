@@ -40,3 +40,14 @@ removeAt xs n = rest
 --q24
 diffSelect :: Int -> Int -> IO [Int]
 diffSelect n m = rndSelect' [1 .. m] n
+
+--q25
+rndPermu :: [a] -> IO [a]
+rndPermu [] = return []
+rndPermu (x:xs) = do
+  r <- randomRIO (0, 1)
+  result <-
+    if r == 0
+      then (rndPermu xs) : [x]
+      else x : (rndPermu xs)
+  return result
