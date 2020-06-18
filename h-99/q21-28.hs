@@ -46,5 +46,5 @@ rndPermu :: [a] -> IO [a]
 rndPermu [] = return []
 rndPermu xs = do
   idx <- randomRIO (1, (length xs))
-  rest <- removeAt xs idx
-  return ((xs !! idx) : rndPermu rest)
+  rest <- rndPermu (removeAt xs idx)
+  return ((xs !! idx) : rest)
