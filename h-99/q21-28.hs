@@ -26,7 +26,7 @@ rndSelect' _ 0 = do
   return []
 rndSelect' xs n = do
   idx <- randomRIO (1, (length xs))
-  rest <- rndSelect' (removeAt xs n) (n - 1)
+  rest <- rndSelect' (removeAt xs idx) (n - 1)
   return ((xs !! idx) : rest)
 
 removeAt :: [a] -> Int -> [a]
@@ -44,10 +44,7 @@ diffSelect n m = rndSelect' [1 .. m] n
 --q25
 rndPermu :: [a] -> IO [a]
 rndPermu [] = return []
-rndPermu (x:xs) = do
-  r <- randomRIO (0, 1)
-  result <-
-    if r == 0
-      then (rndPermu xs) : [x]
-      else x : (rndPermu xs)
-  return result
+rndPermu xs = do
+  idx <- randomRIO (1, (length xs))
+  rest <- removeAt xs idx
+  return ((xs !! idx) : rndPermu rest)
